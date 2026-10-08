@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="view_partner_form_membership" model="ir.ui.view">
+        <field name="name">res.partner.form.membership</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//notebook" position="inside">
+                <page string="Membership" name="membership_page">
+                    <group col="2">
+                        <group string="Basic Information">
+                            <field name="birthday"/>
+                            <field name="loyalty_partner" widget="boolean_toggle"/>
+                            <field name="membership_profile_id"/>
+<!--                            <field name="membership_status"/>-->
+<!--                            <field name="loyalty_tier_id"/>-->
+                        </group>
+<!--                        <group string="Identifiers">-->
+<!--                            <field name="member_code"/>-->
+<!--                            <field name="qr_image" widget="image" invisible="qr_code == False"/>-->
+<!--                        </group>-->
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

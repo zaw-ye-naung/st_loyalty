@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_loyalty_reward_form_inherit_partial_redeem" model="ir.ui.view">
+        <field name="name">loyalty.reward.form.partial.redeem</field>
+        <field name="model">loyalty.reward</field>
+        <field name="inherit_id" ref="loyalty.loyalty_reward_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='reward_type']" position="after">
+                <field name="points_to_currency_rate"
+                       widget="monetary"
+                       invisible="reward_type != 'partial_redeem'"
+                       help="Conversion rate: how many currency units per 1 point"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

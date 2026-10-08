@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- ACTION -->
+    <record id="action_loyalty_tx" model="ir.actions.act_window">
+        <field name="name">Points Ledger</field>
+        <field name="res_model">loyalty.card</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('program_type', '=', 'loyalty')]</field>
+    </record>
+
+    <record id="action_loyalty_programs_filtered" model="ir.actions.act_window">
+        <field name="name">Loyalty Programs</field>
+        <field name="res_model">loyalty.program</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('program_type', '=', 'loyalty')]</field>
+    </record>
+
+    <menuitem id="menu_loyalty_ext_root"
+              name="Loyalty"
+              parent="yoma_loyalty_membership_management.menu_yoma_loyalty_membership_management_root"
+              sequence="2"/>
+
+    <menuitem id="menu_loyalty_transaction"
+              name="Points Ledger"
+              parent="menu_loyalty_ext_root"
+              action="action_loyalty_tx"
+              sequence="2"/>
+
+    <menuitem id="menu_loyalty_programs"
+              name="Loyalty Programs"
+              parent="menu_loyalty_ext_root"
+              action="action_loyalty_programs_filtered"
+              sequence="3"/>
+</odoo>

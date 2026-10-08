@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="seq_membership_profile" model="ir.sequence">
+            <field name="name">Membership Profile</field>
+            <field name="code">membership.profile</field>
+            <field name="prefix">LOY/MEM/</field>
+            <field name="padding">5</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+            <field name="implementation">standard</field>
+        </record>
+
+        <record id="seq_partner_barcode" model="ir.sequence">
+            <field name="name">Partner Barcode</field>
+            <field name="code">res.partner.barcode</field>
+            <field name="padding">9</field>
+            <field name="number_increment">1</field>
+            <field name="implementation">standard</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_loyalty_history_form_inherit_custom" model="ir.ui.view">
+        <field name="name">loyalty.history.form.inherit.custom</field>
+        <field name="model">loyalty.history</field>
+
+        <field name="inherit_id" ref="loyalty.loyalty_history_form"/>
+
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='issued']" position="attributes">
+                <attribute name="string">Earned</attribute>
+            </xpath>
+            <xpath expr="//field[@name='used']" position="after">
+                <field name="history_type"/>
+                <field name="expiration_date"/>
+            </xpath>
+            <xpath expr="//field[@name='order_id']" position="after">
+                <field name="create_date"/>
+                <field name="balance"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

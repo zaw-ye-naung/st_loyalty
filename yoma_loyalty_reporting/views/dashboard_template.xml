@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="dashboard_template">
+
+        <t t-call="web.layout">
+
+            <div class="container mt-4">
+
+                <h2>Loyalty Dashboard</h2>
+
+                <div class="row kpi-row">
+                    <div class="kpi-item">
+                        <div class="dashboard-card">
+                            <h6>Earned</h6>
+                            <h3 id="kpi_earned">0</h3>
+                        </div>
+                    </div>
+
+                    <div class="kpi-item">
+                        <div class="dashboard-card">
+                            <h6>Redeemed</h6>
+                            <h3 id="kpi_redeemed">0</h3>
+                        </div>
+                    </div>
+
+                    <div class="kpi-item">
+                        <div class="dashboard-card">
+                            <h6>Expired</h6>
+                            <h3 id="kpi_expired">0</h3>
+                        </div>
+                    </div>
+
+                    <div class="kpi-item">
+                        <div class="dashboard-card">
+                            <h6>Balance</h6>
+                            <h3 id="kpi_balance">0</h3>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <input type="date" id="start_date" class="form-control"/>
+
+                        <input type="date" id="end_date" class="form-control"/>
+
+                        <button id="apply_filter"
+                                type="button"
+                                class="btn btn-primary">
+                            Apply
+                        </button>
+                    </div>
+
+                </div>
+
+                <hr/>
+
+                <h4>Top Customers</h4>
+
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Customer</th>
+                            <th>Earned</th>
+                            <th>Redeemed</th>
+                            <th>Expired</th>
+                            <th>Balance</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="top_customers"/>
+                </table>
+            </div>
+
+            <style>
+/* =========================
+   MODERN ANALYTICS DASHBOARD (FINAL + SCROLL TABLE FIX)
+   ========================= */
+
+:root {
+    --bg: #0b1220;
+
+    --green: #00d084;
+    --cyan: #22d3ee;
+    --red: #ff4d6d;
+    --orange: #ffb020;
+    --blue: #4f7cff;
+
+    --text: #e5e7eb;
+    --muted: #94a3b8;
+
+    --border: rgba(255,255,255,0.08);
+    --shadow: 0 10px 25px rgba(0,0,0,0.35);
+}
+
+/* =========================
+   BACKGROUND
+   ========================= */
+
+body {
+    background: radial-gradient(circle at top, #111a2e, #0b1220);
+    color: var(--text);
+    font-family: "Segoe UI", sans-serif;
+}
+
+/* =========================
+   TITLES
+   ========================= */
+
+h2 {
+    color: white;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+h4 {
+    color: var(--text);
+}
+
+/* =========================
+   CONTAINER FULL WIDTH
+   ========================= */
+
+.container {
+    max-width: 100% !important;
+}
+
+/* =========================
+   KPI ROW
+   ========================= */
+
+.kpi-row {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.kpi-item {
+    flex: 1;
+    min-width: 130px;
+}
+
+/* =========================
+   KPI CARDS (SMALL + CLEAN)
+   ========================= */
+
+.dashboard-card {
+    background: linear-gradient(145deg, #16213e, #0f172a);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+
+    padding: 2px 8px;
+    margin-bottom: 5px;
+
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.25s ease;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.45);
+}
+
+/* top accent bar */
+.dashboard-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 5px;
+    width: 100%;
+}
+
+/* KPI LABEL */
+.dashboard-card h6 {
+    font-size: 9px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 2px;
+}
+
+/* KPI VALUE */
+.dashboard-card h3 {
+    font-size: 18px;
+    font-weight: 800;
+    color: white;
+    margin: 0;
+}
+
+/* KPI COLORS */
+.kpi-item:nth-child(1) .dashboard-card::before {
+    background: linear-gradient(90deg, var(--green), #4ade80);
+}
+
+.kpi-item:nth-child(2) .dashboard-card::before {
+    background: linear-gradient(90deg, var(--cyan), #60a5fa);
+}
+
+.kpi-item:nth-child(3) .dashboard-card::before {
+    background: linear-gradient(90deg, var(--red), #fb7185);
+}
+
+.kpi-item:nth-child(4) .dashboard-card::before {
+    background: linear-gradient(90deg, var(--orange), #fcd34d);
+}
+
+/* =========================
+   FILTER BAR (MATCH KPI HEIGHT)
+   ========================= */
+
+.row > .col {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+/* INPUTS */
+.form-control {
+    background: #0f172a;
+    border: 1px solid var(--border);
+    color: white;
+
+    height: 44px;
+    border-radius: 10px;
+
+    padding: 0 10px;
+}
+
+/* calendar icon */
+.form-control::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+}
+
+/* BUTTON */
+.btn-primary {
+    height: 44px;
+    padding: 0 18px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    font-weight: 700;
+    border-radius: 10px;
+
+    background: linear-gradient(135deg, var(--blue), #6f95ff);
+    border: none;
+
+    box-shadow: 0 6px 15px rgba(79,124,255,0.25);
+    transition: all 0.25s ease;
+}
+
+/* BUTTON HOVER */
+.btn-primary:hover {
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 12px 25px rgba(79,124,255,0.35);
+    background: linear-gradient(135deg, #5b8cff, #7aa2ff);
+}
+
+/* =========================
+   TABLE WRAPPER (SCROLL FIX)
+   ========================= */
+
+.table-wrapper {
+    max-height: 420px;
+    overflow-y: auto;
+    border-radius: 16px;
+    margin-top: 10px;
+
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+}
+
+/* sticky header */
+.table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+/* scrollbar styling */
+.table-wrapper::-webkit-scrollbar {
+    width: 6px;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb {
+    background: rgba(79,124,255,0.4);
+    border-radius: 10px;
+}
+
+.table-wrapper::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* =========================
+   TABLE STYLE
+   ========================= */
+
+.table {
+    width: 100%;
+    background: rgba(15, 23, 42, 0.85);
+    border-radius: 16px;
+    overflow: hidden;
+    color: white;
+    border-collapse: collapse;
+}
+
+.table thead {
+    background: linear-gradient(90deg, #1e293b, #111827);
+}
+
+.table thead th {
+    padding: 14px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #cbd5e1;
+}
+
+.table tbody td {
+    padding: 12px;
+    color: #e5e7eb;
+}
+
+.table tbody tr:hover {
+    background: rgba(79,124,255,0.12);
+}
+
+/* spacing */
+hr {
+    border-color: rgba(255,255,255,0.1);
+    margin: 18px 0;
+}
+</style>
+            <script type="text/javascript">
+
+                setTimeout(function () {
+
+                    console.log("Dashboard JS Started");
+
+                    function loadDashboard() {
+
+                        fetch('/loyalty/dashboard/kpi')
+                            .then(r => r.json())
+                            .then(data => {
+
+                                console.log("KPI DATA", data);
+
+                                document.getElementById("kpi_earned").innerText =
+                                    data.earned || 0;
+
+                                document.getElementById("kpi_redeemed").innerText =
+                                    data.redeemed || 0;
+
+                                document.getElementById("kpi_expired").innerText =
+                                    data.expired || 0;
+
+                                document.getElementById("kpi_balance").innerText =
+                                    data.balance || 0;
+
+                                document.getElementById("debug_kpi").innerText =
+                                    JSON.stringify(data, null, 2);
+                            });
+
+                        fetch('/loyalty/dashboard/top_customers')
+                            .then(r => r.json())
+                            .then(data => {
+
+                                let html = "";
+
+                                data.forEach(function (row) {
+
+                                    html += `
+                                        <tr>
+                                            <td>${row.customer}</td>
+                                            <td>${row.earned}</td>
+                                            <td>${row.redeemed}</td>
+                                            <td>${row.expired}</td>
+                                            <td>${row.balance}</td>
+                                        </tr>
+                                    `;
+                                });
+
+                                document.getElementById("top_customers").innerHTML = html;
+                            });
+                    }
+
+                    loadDashboard();
+
+                    document
+                        .getElementById("apply_filter")
+                        .addEventListener("click", loadDashboard);
+
+                }, 1000);
+
+            </script>
+
+        </t>
+
+    </template>
+
+</odoo>

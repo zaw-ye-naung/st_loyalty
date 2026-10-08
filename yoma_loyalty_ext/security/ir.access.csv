@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,operation
+access_loyalty_expiration,loyalty.expiration,model_loyalty_expiration,base.group_user,crud

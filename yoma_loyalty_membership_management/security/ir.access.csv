@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,operation
+access_membership_profile,access_membership_profile,model_membership_profile,base.group_user,crud
+access_membership_tier,access_membership_tier,model_membership_tier,base.group_user,crud
+access_membership_history,access_membership_tier_history,model_membership_tier_history,base.group_user,crud

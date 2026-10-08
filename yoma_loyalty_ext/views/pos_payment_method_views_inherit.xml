@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="pos_payment_method_form_inherit_loyalty" model="ir.ui.view">
+        <field name="name">pos.payment.method.form.inherit.loyalty</field>
+        <field name="model">pos.payment.method</field>
+        <field name="inherit_id" ref="point_of_sale.pos_payment_method_view_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='receivable_account_id']" position="after">
+                <field name="is_loyalty_points"/>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

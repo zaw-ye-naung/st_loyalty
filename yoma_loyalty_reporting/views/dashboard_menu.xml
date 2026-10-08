@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="action_loyalty_dashboard" model="ir.actions.act_url">
+        <field name="name">Loyalty Dashboard</field>
+        <field name="url">/loyalty/dashboard</field>
+        <field name="target">self</field>
+    </record>
+
+    <menuitem id="menu_loyalty_root"
+              name="Loyalty Reporting"
+              parent="yoma_loyalty_membership_management.menu_yoma_loyalty_membership_management_root"
+              sequence="10"/>
+
+    <menuitem id="menu_loyalty_dashboard"
+              name="Dashboard"
+              parent="menu_loyalty_root"
+              action="action_loyalty_dashboard"
+              sequence="1"/>
+
+</odoo>

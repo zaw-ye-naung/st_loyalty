@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="tier_bronze" model="membership.tier">
+        <field name="name">Bronze</field>
+        <field name="code">BRONZE</field>
+        <field name="priority">4</field>
+        <field name="min_spending">1</field>
+    </record>
+
+    <record id="tier_silver" model="membership.tier">
+        <field name="name">Silver</field>
+        <field name="code">SILVER</field>
+        <field name="priority">3</field>
+        <field name="min_spending">500</field>
+    </record>
+
+    <record id="tier_gold" model="membership.tier">
+        <field name="name">Gold</field>
+        <field name="code">GOLD</field>
+        <field name="priority">2</field>
+        <field name="min_spending">5000</field>
+    </record>
+
+    <record id="tier_platinum" model="membership.tier">
+        <field name="name">Platinum</field>
+        <field name="code">PLATINUM</field>
+        <field name="priority">1</field>
+        <field name="min_spending">10000</field>
+    </record>
+
+</odoo>

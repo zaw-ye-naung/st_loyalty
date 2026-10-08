@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="pos_payment_method_loyalty_points" model="pos.payment.method">
+        <field name="name">Points Payment</field>
+
+        <field name="use_payment_terminal">none</field>
+        <field name="is_cash_count" eval="False"/>
+
+        <field name="is_loyalty_points" eval="True"/>
+
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+
+</odoo>
