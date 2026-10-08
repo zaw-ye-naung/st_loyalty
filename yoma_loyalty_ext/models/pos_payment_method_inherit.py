@@ -6,9 +6,9 @@ class PosPaymentMethod(models.Model):
 
     type = fields.Selection(
         selection_add=[
-            ('loyalty_points', 'Loyalty Points')
+            ('points', 'Points')
         ],
-        ondelete={'loyalty_points': 'cascade'}
+        ondelete={'points': 'cascade'}
     )
 
     is_loyalty_points = fields.Boolean(
