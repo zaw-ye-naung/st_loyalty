@@ -81,7 +81,7 @@ class PosOrder(models.Model):
             if not payment_method:
                 continue
 
-            if not payment_method.is_loyalty_points:
+            if not payment_method.type == 'points':
                 continue
 
             try:
@@ -354,7 +354,7 @@ class PosOrder(models.Model):
             for payment in order.payment_ids:
                 method = payment.payment_method_id
 
-                if not method.is_loyalty_points:
+                if not method.type == 'points':
                     continue
 
                 refund_points += abs(payment.amount) / rate
@@ -408,7 +408,7 @@ class PosOrder(models.Model):
             for payment in order.payment_ids:
 
                 method = payment.payment_method_id
-                if not method.is_loyalty_points:
+                if not method.type == 'points':
                     continue
 
                 amount = payment.amount

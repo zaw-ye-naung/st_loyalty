@@ -15,7 +15,7 @@ class PosSession(models.Model):
 
         if not reward_exists:
             result["search_params"]["domain"] = [
-                ("is_loyalty_points", "=", False)
+                ("type", "!=", 'points')
             ]
 
         return result

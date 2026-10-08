@@ -29,7 +29,7 @@ class PosPaymentMethod(models.Model):
         )
 
         for method in self:
-            if method.is_loyalty_points:
+            if method.type == 'points':
                 method.loyalty_payment_available = reward_exists
             else:
                 method.loyalty_payment_available = True
